@@ -2,8 +2,8 @@ package service
 
 import (
 	"context"
-	"github.com/INEFFABLE-games/Birds/internal/models"
-	"github.com/INEFFABLE-games/Birds/internal/repository"
+	"github.com/INEFFABLE-games/Birds/models"
+	"github.com/INEFFABLE-games/Birds/repository"
 )
 
 type BirdService struct {
