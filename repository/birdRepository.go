@@ -1,8 +1,8 @@
 package repository
 
 import (
-	"INEFFABLE-games/Birds/internal/models"
 	"context"
+	"github.com/INEFFABLE-games/Birds/models"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )

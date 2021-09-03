@@ -1,8 +1,9 @@
-package repository
+package service
 
 import (
-	"Birds/internal/models"
 	"context"
+	"github.com/INEFFABLE-games/Birds/models"
+	"github.com/INEFFABLE-games/Birds/repository"
 	log "github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/require"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -27,7 +28,7 @@ func InitDataBase() *mongo.Client {
 	return mongoConn
 }
 
-func TestBirdRepository_Insert(t *testing.T) {
+func TestBirdService_Create(t *testing.T) {
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*2)
 	defer cancel()
@@ -36,9 +37,10 @@ func TestBirdRepository_Insert(t *testing.T) {
 
 	mongoConn := InitDataBase()
 
-	r := NewBirdRepository(mongoConn)
+	r := repository.NewBirdRepository(mongoConn)
+	serv := NewBirdService(r)
 
-	err := r.Insert(ctx, models.Bird{
+	err := serv.Create(ctx, models.Bird{
 		Owner: "Me",
 		Name:  "Phoenix",
 		Type:  "Firebird",
@@ -46,14 +48,14 @@ func TestBirdRepository_Insert(t *testing.T) {
 	if err != nil {
 		log.WithFields(log.Fields{
 			"handler": "birds",
-			"action":  "insert",
+			"action":  "create",
 		}).Errorf("unable to insert bird %v", err)
 	}
 
 	require.Nil(t, err)
 }
 
-func TestBirdRepository_Get(t *testing.T) {
+func TestBirdService_Update(t *testing.T) {
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*2)
 	defer cancel()
@@ -62,44 +64,25 @@ func TestBirdRepository_Get(t *testing.T) {
 
 	mongoConn := InitDataBase()
 
-	r := NewBirdRepository(mongoConn)
+	r := repository.NewBirdRepository(mongoConn)
+	serv := NewBirdService(r)
 
-	bird, err := r.FindByOwner(ctx, "Me")
+	err := serv.Update(ctx, models.Bird{
+		Owner: "Me",
+		Name:  "Daeg",
+		Type:  "Firesrnabird",
+	})
 	if err != nil {
 		log.WithFields(log.Fields{
 			"handler": "birds",
-			"action":  "find",
-		}).Errorf("unable to find bird %v", err)
+			"action":  "update",
+		}).Errorf("unable to insert bird %v", err)
 	}
-
-	require.Equal(t, models.Bird{
-		Owner: "Me",
-		Name:  "Phoenix",
-		Type:  "Firebird",
-	}, bird)
-}
-
-func TestBirdRepository_Update(t *testing.T) {
-
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*2)
-	defer cancel()
-
-	//connect to mongo
-
-	mongoConn := InitDataBase()
-
-	r := NewBirdRepository(mongoConn)
-
-	err := r.Update(ctx, models.Bird{
-		Owner: "Me",
-		Name:  "Dragon",
-		Type:  "sejgnose",
-	})
 
 	require.Nil(t, err)
 }
 
-func TestBirdRepository_DeleteByOwner(t *testing.T) {
+func TestBirdService_Get(t *testing.T) {
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*2)
 	defer cancel()
@@ -108,9 +91,41 @@ func TestBirdRepository_DeleteByOwner(t *testing.T) {
 
 	mongoConn := InitDataBase()
 
-	r := NewBirdRepository(mongoConn)
+	r := repository.NewBirdRepository(mongoConn)
+	serv := NewBirdService(r)
 
-	err := r.DeleteByOwner(ctx, "Me")
+	result, err := serv.Get(ctx, "Me")
+	if err != nil {
+		log.WithFields(log.Fields{
+			"handler": "birds",
+			"action":  "get",
+		}).Errorf("unable to insert bird %v", err)
+	}
+	require.Equal(t, models.Bird{
+		Owner: "Me",
+		Name:  "Daeg",
+		Type:  "Firesrnabird",
+	}, result)
+}
 
+func TestBirdService_Delete(t *testing.T) {
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*2)
+	defer cancel()
+
+	//connect to mongo
+
+	mongoConn := InitDataBase()
+
+	r := repository.NewBirdRepository(mongoConn)
+	serv := NewBirdService(r)
+
+	err := serv.Delete(ctx, "Me")
+	if err != nil {
+		log.WithFields(log.Fields{
+			"handler": "birds",
+			"action":  "delete",
+		}).Errorf("unable to insert bird %v", err)
+	}
 	require.Nil(t, err)
 }

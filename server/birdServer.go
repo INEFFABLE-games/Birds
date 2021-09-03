@@ -1,20 +1,20 @@
 package server
 
 import (
-	"INEFFABLE-games/Birds/internal/models"
-	proto "INEFFABLE-games/Birds/internal/protocol"
-	"INEFFABLE-games/Birds/internal/service"
 	"context"
+	"github.com/INEFFABLE-games/Birds/models"
+	"github.com/INEFFABLE-games/Birds/protocol"
+	"github.com/INEFFABLE-games/Birds/service"
 	log "github.com/sirupsen/logrus"
 )
 
 type BirdHandler struct {
 	birdService *service.BirdService
 
-	proto.UnimplementedBirdServiceServer
+	protocol.UnimplementedBirdServiceServer
 }
 
-func (b BirdHandler) CreateBird(ctx context.Context, request *proto.CreateRequest) (*proto.CreateReply, error) {
+func (b BirdHandler) CreateBird(ctx context.Context, request *protocol.CreateRequest) (*protocol.CreateReply, error) {
 
 	bird := models.Bird{}
 	bird.Owner = request.GetOwner()
@@ -29,14 +29,14 @@ func (b BirdHandler) CreateBird(ctx context.Context, request *proto.CreateReques
 		}).Errorf("unable to create bird %v", err.Error())
 
 		message := "unable to create bird"
-		return &proto.CreateReply{Message: &message}, err
+		return &protocol.CreateReply{Message: &message}, err
 	}
 
 	message := "bird created"
-	return &proto.CreateReply{Message: &message}, err
+	return &protocol.CreateReply{Message: &message}, err
 }
 
-func (b BirdHandler) GetBird(ctx context.Context, request *proto.GetRequest) (*proto.GetReply, error) {
+func (b BirdHandler) GetBird(ctx context.Context, request *protocol.GetRequest) (*protocol.GetReply, error) {
 
 	owner := request.GetOwner()
 
@@ -47,13 +47,13 @@ func (b BirdHandler) GetBird(ctx context.Context, request *proto.GetRequest) (*p
 			"action":  "get",
 		}).Errorf("unable to get bird %v", err.Error())
 
-		return &proto.GetReply{}, err
+		return &protocol.GetReply{}, err
 	}
 
-	return &proto.GetReply{Owner: &result.Owner, Name: &result.Name, Type: &result.Type}, err
+	return &protocol.GetReply{Owner: &result.Owner, Name: &result.Name, Type: &result.Type}, err
 }
 
-func (b BirdHandler) ChangeBird(ctx context.Context, request *proto.ChangeRequest) (*proto.ChangeReply, error) {
+func (b BirdHandler) ChangeBird(ctx context.Context, request *protocol.ChangeRequest) (*protocol.ChangeReply, error) {
 
 	bird := models.Bird{}
 	bird.Owner = request.GetOwner()
@@ -67,15 +67,15 @@ func (b BirdHandler) ChangeBird(ctx context.Context, request *proto.ChangeReques
 			"action":  "get",
 		}).Errorf("unable to change bird %v", err.Error())
 
-		return &proto.ChangeReply{}, err
+		return &protocol.ChangeReply{}, err
 	}
 
 	message := "bird cahnged"
 
-	return &proto.ChangeReply{Message: &message}, err
+	return &protocol.ChangeReply{Message: &message}, err
 }
 
-func (b BirdHandler) DeleteBird(ctx context.Context, request *proto.DeleteRequest) (*proto.DeleteReply, error) {
+func (b BirdHandler) DeleteBird(ctx context.Context, request *protocol.DeleteRequest) (*protocol.DeleteReply, error) {
 
 	owner := request.GetOwner()
 
@@ -86,14 +86,14 @@ func (b BirdHandler) DeleteBird(ctx context.Context, request *proto.DeleteReques
 			"action":  "get",
 		}).Errorf("unable to delete bird %v", err.Error())
 
-		return &proto.DeleteReply{}, err
+		return &protocol.DeleteReply{}, err
 	}
 
 	message := "bird deleted"
 
-	return &proto.DeleteReply{Message: &message}, err
+	return &protocol.DeleteReply{Message: &message}, err
 }
 
-func NewBirdHandler(birdService *service.BirdService) proto.BirdServiceServer {
+func NewBirdHandler(birdService *service.BirdService) protocol.BirdServiceServer {
 	return BirdHandler{birdService: birdService}
 }
