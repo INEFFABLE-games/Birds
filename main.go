@@ -1,11 +1,11 @@
 package main
 
 import (
-	"Birds/internal/config"
-	"Birds/internal/protocol"
-	"Birds/internal/repository"
-	"Birds/internal/server"
-	"Birds/internal/service"
+	"INEFFABLE-games/Birds/internal/config"
+	"INEFFABLE-games/Birds/internal/protocol"
+	"INEFFABLE-games/Birds/internal/repository"
+	"INEFFABLE-games/Birds/internal/server"
+	"INEFFABLE-games/Birds/internal/service"
 	"context"
 	"fmt"
 	log "github.com/sirupsen/logrus"
