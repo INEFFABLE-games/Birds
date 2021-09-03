@@ -2,34 +2,34 @@ syntax = "proto2";
 
 package proto;
 
-option go_package = "./proto";
+option go_package = "./protocol";
 
 service BirdService{
-  rpc CreateBird(CreateBirdRequest) returns (CreateBirdReply){}
-  rpc GetBird(GetBirdRequest) returns (GetBirdReply){}
-  rpc ChangeBird(ChangeBirdRequest) returns (ChangeBirdReply){}
-  rpc DeleteBird(DeleteBirdRequest) returns (DeleteBirdReply){}
+  rpc Create(CreateRequest) returns (CreateReply){}
+  rpc Get(GetRequest) returns (GetReply){}
+  rpc Change(ChangeRequest) returns (ChangeReply){}
+  rpc Delete(DeleteRequest) returns (DeleteReply){}
 }
 
 // create
 
-message CreateBirdRequest{
+message CreateRequest{
   required string owner = 1;
   required string name = 2;
   required string type = 3;
 }
 
-message CreateBirdReply{
+message CreateReply{
   required string message = 1;
 }
 
 // get
 
-message GetBirdRequest{
+message GetRequest{
   required string owner = 1;
 }
 
-message GetBirdReply{
+message GetReply{
   required string owner = 1;
   required string name = 2;
   required string type = 3;
@@ -37,22 +37,22 @@ message GetBirdReply{
 
 // change
 
-message ChangeBirdRequest{
+message ChangeRequest{
   required string owner = 1;
   required string name = 2;
   required string type = 3;
 }
 
-message ChangeBirdReply{
+message ChangeReply{
   required string message = 1;
 }
 
 // delete
 
-message DeleteBirdRequest{
+message DeleteRequest{
   required string owner = 1;
 }
 
-message DeleteBirdReply{
+message DeleteReply{
   required string message = 1;
 }
