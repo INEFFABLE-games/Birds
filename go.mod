@@ -1,4 +1,4 @@
-module Birds
+module INEFFABLE-games/Birds
 
 go 1.16
 

@@ -1,8 +1,8 @@
 package service
 
 import (
-	"Birds/internal/models"
-	"Birds/internal/repository"
+	"INEFFABLE-games/Birds/internal/models"
+	"INEFFABLE-games/Birds/internal/repository"
 	"context"
 )
 
