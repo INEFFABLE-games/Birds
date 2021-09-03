@@ -1,0 +1,58 @@
+syntax = "proto2";
+
+package proto;
+
+option go_package = "./proto";
+
+service BirdService{
+  rpc CreateBird(CreateBirdRequest) returns (CreateBirdReply){}
+  rpc GetBird(GetBirdRequest) returns (GetBirdReply){}
+  rpc ChangeBird(ChangeBirdRequest) returns (ChangeBirdReply){}
+  rpc DeleteBird(DeleteBirdRequest) returns (DeleteBirdReply){}
+}
+
+// create
+
+message CreateBirdRequest{
+  required string owner = 1;
+  required string name = 2;
+  required string type = 3;
+}
+
+message CreateBirdReply{
+  required string message = 1;
+}
+
+// get
+
+message GetBirdRequest{
+  required string owner = 1;
+}
+
+message GetBirdReply{
+  required string owner = 1;
+  required string name = 2;
+  required string type = 3;
+}
+
+// change
+
+message ChangeBirdRequest{
+  required string owner = 1;
+  required string name = 2;
+  required string type = 3;
+}
+
+message ChangeBirdReply{
+  required string message = 1;
+}
+
+// delete
+
+message DeleteBirdRequest{
+  required string owner = 1;
+}
+
+message DeleteBirdReply{
+  required string message = 1;
+}
