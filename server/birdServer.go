@@ -14,7 +14,7 @@ type BirdHandler struct {
 	protocol.UnimplementedBirdServiceServer
 }
 
-func (b BirdHandler) CreateBird(ctx context.Context, request *protocol.CreateRequest) (*protocol.CreateReply, error) {
+func (b BirdHandler) Create(ctx context.Context, request *protocol.CreateRequest) (*protocol.CreateReply, error) {
 
 	bird := models.Bird{}
 	bird.Owner = request.GetOwner()
@@ -36,7 +36,7 @@ func (b BirdHandler) CreateBird(ctx context.Context, request *protocol.CreateReq
 	return &protocol.CreateReply{Message: &message}, err
 }
 
-func (b BirdHandler) GetBird(ctx context.Context, request *protocol.GetRequest) (*protocol.GetReply, error) {
+func (b BirdHandler) Get(ctx context.Context, request *protocol.GetRequest) (*protocol.GetReply, error) {
 
 	owner := request.GetOwner()
 
@@ -53,7 +53,7 @@ func (b BirdHandler) GetBird(ctx context.Context, request *protocol.GetRequest) 
 	return &protocol.GetReply{Owner: &result.Owner, Name: &result.Name, Type: &result.Type}, err
 }
 
-func (b BirdHandler) ChangeBird(ctx context.Context, request *protocol.ChangeRequest) (*protocol.ChangeReply, error) {
+func (b BirdHandler) Change(ctx context.Context, request *protocol.ChangeRequest) (*protocol.ChangeReply, error) {
 
 	bird := models.Bird{}
 	bird.Owner = request.GetOwner()
@@ -75,7 +75,7 @@ func (b BirdHandler) ChangeBird(ctx context.Context, request *protocol.ChangeReq
 	return &protocol.ChangeReply{Message: &message}, err
 }
 
-func (b BirdHandler) DeleteBird(ctx context.Context, request *protocol.DeleteRequest) (*protocol.DeleteReply, error) {
+func (b BirdHandler) Delete(ctx context.Context, request *protocol.DeleteRequest) (*protocol.DeleteReply, error) {
 
 	owner := request.GetOwner()
 
