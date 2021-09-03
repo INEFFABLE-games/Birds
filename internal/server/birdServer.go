@@ -1,10 +1,10 @@
 package server
 
 import (
-	"INEFFABLE-games/Birds/internal/models"
-	proto "INEFFABLE-games/Birds/internal/protocol"
-	"INEFFABLE-games/Birds/internal/service"
 	"context"
+	"github.com/INEFFABLE-games/Birds/internal/models"
+	proto "github.com/INEFFABLE-games/Birds/internal/protocol"
+	"github.com/INEFFABLE-games/Birds/internal/service"
 	log "github.com/sirupsen/logrus"
 )
 

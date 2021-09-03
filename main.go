@@ -1,13 +1,13 @@
 package main
 
 import (
-	"INEFFABLE-games/Birds/internal/config"
-	"INEFFABLE-games/Birds/internal/protocol"
-	"INEFFABLE-games/Birds/internal/repository"
-	"INEFFABLE-games/Birds/internal/server"
-	"INEFFABLE-games/Birds/internal/service"
 	"context"
 	"fmt"
+	"github.com/INEFFABLE-games/Birds/internal/config"
+	"github.com/INEFFABLE-games/Birds/internal/protocol"
+	"github.com/INEFFABLE-games/Birds/internal/repository"
+	"github.com/INEFFABLE-games/Birds/internal/server"
+	"github.com/INEFFABLE-games/Birds/internal/service"
 	log "github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
